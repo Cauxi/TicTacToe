@@ -12,6 +12,7 @@ public class TicTacToe {
     JPanel boardPanel = new JPanel();
 
     JButton[][] board = new JButton[3][3];
+    JButton restartButton;
     String playerX = "X";
     String playerO = "O";
     String currentPlayer = playerX;
@@ -42,6 +43,14 @@ public class TicTacToe {
         boardPanel.setBackground(Color.darkGray);
         frame.add(boardPanel);
 
+        restartButton = new JButton("Restart");
+        restartButton.setFont(new Font("Arial", Font.BOLD, 30));
+        restartButton.setBackground(Color.darkGray);
+        restartButton.setForeground(Color.WHITE);
+        restartButton.setFocusable(false);
+
+        frame.add(restartButton, BorderLayout.SOUTH);
+
         for (int r = 0; r < 3; r++) {
             for (int c = 0; c < 3; c++) {
                 JButton tile = new JButton();
@@ -71,6 +80,25 @@ public class TicTacToe {
                 });
             }
         }
+
+        restartButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Reset the game state
+                for (int r = 0; r < 3; r++) {
+                    for (int c = 0; c < 3; c++) {
+                        JButton tile = board[r][c];
+                        tile.setText("");
+                        tile.setBackground(Color.darkGray);
+                        tile.setForeground(Color.WHITE);
+                    }
+                }
+                currentPlayer = playerX;
+                gameOver = false;
+                turns = 0;
+                textLabel.setText("Tic-Tac-Toe");
+            }
+        });
+
     }
 
     void checkWinner() {
